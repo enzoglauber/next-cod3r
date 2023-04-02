@@ -11,7 +11,7 @@ export default (req, res) => {
 }
 
 function post(req, res) {
-  const user = JSON.parse(req.body);
+  const user = JSON.parse(req.body)
   users.push(user)
 
   res.status(200).send()

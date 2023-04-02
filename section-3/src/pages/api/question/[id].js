@@ -11,8 +11,8 @@ export default (req, res) => {
 function get(req, res) {
   const id = req.query.id
   res.status(200).json({
-    id, 
-    describe: 'What\'s your favorite color?',
+    id,
+    describe: "What's your favorite color?",
     answers: ['white', 'red', 'black', 'green']
   })
 }

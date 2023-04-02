@@ -1,19 +1,17 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react'
 
-export default function question() {
+export default function Question() {
   const [question, setQuestion] = useState(null)
 
   useEffect(() => {
     fetch('http://localhost:3000/api/question/123')
-      .then(res => res.json())
-      .then(json => setQuestion(json))
+      .then((res) => res.json())
+      .then((json) => setQuestion(json))
   }, [])
 
   const renderAnswers = () => {
     if (!question) return false
-    return question.answers.map((answer, i) => (
-      <li key={answer+i}>{answer}</li>
-    ))
+    return question.answers.map((answer, i) => <li key={answer + i}>{answer}</li>)
   }
 
   return (
@@ -21,9 +19,7 @@ export default function question() {
       <h1>Question Index</h1>
       {/* {JSON.stringify(question, null, 2)} */}
       {question?.describe}
-      <ul>
-        {renderAnswers()}
-      </ul>
+      <ul>{renderAnswers()}</ul>
     </div>
   )
 }
