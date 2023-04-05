@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <div style={{ display: 'flex' }}>
       <Gift />
-      <Door door={door1} selected />
+      <Door value={door1} />
     </div>
   )
 }
