@@ -8,3 +8,14 @@ export function buildDoors(length: number, selected: number): DoorModel[] {
     return new DoorModel(sequence, gift)
   })
 }
+
+export function updateDoors(doors: DoorModel[], doorChanged: DoorModel): DoorModel[] {
+  return doors.map((door) => {
+    const changed = door.number === doorChanged.number
+    if (changed) {
+      return doorChanged
+    } else {
+      return doorChanged.opened ? door : door.unselect()
+    }
+  })
+}
