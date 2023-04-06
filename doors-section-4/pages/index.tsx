@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <div style={{ display: 'flex' }}>
       <Gift />
-      <Door value={door1} />
+      <Door value={door1} onChange={(door) => setDoor1(door)} />
     </div>
   )
 }
