@@ -4,7 +4,9 @@ import Gift from '../components/Gift'
 import DoorModel from '../model/door'
 
 export default function Home() {
-  const [door1, setDoor1] = useState(new DoorModel(2, false, true))
+  const [door1, setDoor1] = useState(new DoorModel(2))
+
+  console.log(`door1`, door1)
 
   return (
     <div style={{ display: 'flex' }}>
