@@ -1,9 +1,9 @@
 import DoorModel from '../model/door'
 
-export function buildDoors(length: number, selected: number): DoorModel[] {
-  return Array.from({ length }, (_, i) => {
+export function buildDoors(size: number, withGift: number): DoorModel[] {
+  return Array.from({ length: size }, (_, i) => {
     const sequence = i + 1
-    const gift = sequence === selected
+    const gift = sequence === withGift
 
     return new DoorModel(sequence, gift)
   })
