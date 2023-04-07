@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import Door from '../components/Door'
-import Gift from '../components/Gift'
 import { buildDoors, updateDoors } from '../functions/doors'
 
 export default function Home() {
@@ -17,10 +16,5 @@ export default function Home() {
       />
     ))
 
-  return (
-    <div style={{ display: 'flex' }}>
-      <Gift />
-      {Doors()}
-    </div>
-  )
+  return <div style={{ display: 'flex' }}>{Doors()}</div>
 }

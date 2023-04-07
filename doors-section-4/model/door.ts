@@ -23,6 +23,9 @@ export default class DoorModel {
   get opened() {
     return this.#opened
   }
+  get closed() {
+    return !this.#opened
+  }
 
   toggle() {
     const selected = !this.selected
