@@ -10,21 +10,19 @@ function Game() {
   const [validate, setValidate] = useState(false)
   const { query } = useRouter()
 
+  const size = +query.size
+  const withGift = +query.withGift
+
   useEffect(() => {
-    const size = +query.size
-    const withGift = +query.withGift
     setDoors(buildDoors(size, withGift))
-  }, [query])
+  }, [size, withGift])
 
   useEffect(() => {
-    const size = +query.size
-    const withGift = +query.withGift
-
     const checkSize = size >= 3 && size <= 100
     const checkWithGift = withGift >= 1 && withGift <= size
 
     setValidate(checkSize && checkWithGift)
-  }, [doors])
+  }, [size, withGift])
 
   const Doors = () =>
     doors.map((door) => (
