@@ -1,4 +1,4 @@
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const response = await fetch('http://localhost:3000/api/products')
   const products = await response.json()
 
@@ -15,11 +15,11 @@ interface Product {
   value: number
 }
 
-interface Static4Props {
+interface Dynamic2Props {
   products: Product[]
 }
 
-export default function Static4({ products }: Static4Props) {
+export default function Dynamic2({ products }: Dynamic2Props) {
   const renderProducts = () =>
     products?.map((product) => (
       <li key={product.id}>
@@ -28,7 +28,7 @@ export default function Static4({ products }: Static4Props) {
     ))
   return (
     <>
-      <h1>Static #03</h1>
+      <h1>Dynamic #02</h1>
       <ul>{renderProducts()}</ul>
     </>
   )
