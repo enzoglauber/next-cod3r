@@ -1,19 +1,48 @@
-export function getStaticPaths() {
-  return {
-    fallback: false, // 404
-    paths: [{ params: { id: `1` } }, { params: { id: `2` } }, { params: { id: `3` } }]
-  }
+interface Student {
+  id: number
+  name: string
+  email: number
 }
-export function getStaticProps() {
+
+interface StudentByIdProps {
+  student: Student
+}
+
+export async function getStaticPaths() {
+  const response = await fetch(`http://localhost:3000/api/students/tutors`)
+  const ids = await response.json()
+
+  const paths = ids.map((id) => ({
+    params: {
+      id: `${id}`
+    }
+  }))
+
   return {
-    props: {}
+    fallback: false, // 404 when its dont find
+    paths
   }
 }
 
-export default function StudentById() {
+export async function getStaticProps({ params }) {
+  const response = await fetch(`http://localhost:3000/api/students/${params.id}`)
+  const student = await response.json()
+  return {
+    props: {
+      student
+    }
+  }
+}
+
+export default function StudentById(props: StudentByIdProps) {
   return (
     <div>
       <h1>Student detail</h1>
+      <ul>
+        <li>{props.student.id}</li>
+        <li>{props.student.name}</li>
+        <li>{props.student.email}</li>
+      </ul>
     </div>
   )
 }
