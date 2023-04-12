@@ -4,7 +4,7 @@ export function getStaticProps() {
   return {
     revalidate: 7, // INCREMENTAL STATIC REGENERATION
     props: {
-      number: Math.random()
+      num2ber: Math.random()
     }
   }
 }
