@@ -19,7 +19,7 @@ export async function getStaticPaths() {
   }))
 
   return {
-    fallback: false, // 404 when its dont find
+    fallback: true, // false = 404, true = It escapes getStaticPaths and goes directly to getStaticProps
     paths
   }
 }
@@ -34,15 +34,19 @@ export async function getStaticProps({ params }) {
   }
 }
 
-export default function StudentById(props: StudentByIdProps) {
+export default function StudentById({ student }: StudentByIdProps) {
   return (
     <div>
       <h1>Student detail</h1>
-      <ul>
-        <li>{props.student.id}</li>
-        <li>{props.student.name}</li>
-        <li>{props.student.email}</li>
-      </ul>
+      {student ? (
+        <ul>
+          <li>{student.id}</li>
+          <li>{student.name}</li>
+          <li>{student.email}</li>
+        </ul>
+      ) : (
+        false
+      )}
     </div>
   )
 }
