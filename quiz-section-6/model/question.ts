@@ -34,6 +34,9 @@ export default class QuestionModel {
   }
 
   get answered() {
+    for (let answer of this.#answers) {
+      if (answer.showed) return true
+    }
     return false
   }
 }
