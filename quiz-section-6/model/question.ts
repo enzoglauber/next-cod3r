@@ -1,3 +1,4 @@
+// import { embaralhar } from '../functions/arrays'
 import AnswerModel from './answer'
 
 export default class QuestionModel {
@@ -38,5 +39,15 @@ export default class QuestionModel {
       if (answer.showed) return true
     }
     return false
+  }
+
+  toObject() {
+    return {
+      id: this.#id,
+      statement: this.#statement,
+      answered: this.answered,
+      right: this.#right,
+      answers: this.#answers.map((answer) => answer.toObject())
+    }
   }
 }

@@ -28,4 +28,12 @@ export default class AnswerModel {
   get showed() {
     return this.#showed
   }
+
+  toObject() {
+    return {
+      value: this.#value,
+      right: this.#right,
+      showed: this.#showed
+    }
+  }
 }
