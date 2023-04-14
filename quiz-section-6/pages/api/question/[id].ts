@@ -6,7 +6,8 @@ export default function question(req, res) {
   const selected = questions.filter((question) => question.id === id)
 
   if (selected.length) {
-    res.status(200).json(selected[0].toObject())
+    const shuffled = selected[0].shuffleAnswers()
+    res.status(200).json(shuffled.toObject())
   } else {
     res.status(204).send()
   }

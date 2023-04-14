@@ -1,4 +1,5 @@
 // import { embaralhar } from '../functions/arrays'
+import { shuffle } from '../functions/shuffle'
 import AnswerModel from './answer'
 
 export default class QuestionModel {
@@ -39,6 +40,11 @@ export default class QuestionModel {
       if (answer.showed) return true
     }
     return false
+  }
+
+  shuffleAnswers(): QuestionModel {
+    let shuffled = shuffle(this.#answers)
+    return new QuestionModel(this.#id, this.#statement, shuffled, this.#right)
   }
 
   toObject() {
