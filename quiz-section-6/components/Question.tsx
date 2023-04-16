@@ -7,11 +7,30 @@ interface QuestionProps {
   value: QuestionModel
 }
 
+const letters = [
+  {
+    value: `A`,
+    color: '#f2c866'
+  },
+  {
+    value: `B`,
+    color: '#f266ba'
+  },
+  {
+    value: `C`,
+    color: '#85d4f2'
+  },
+  {
+    value: `D`,
+    color: '#bce596'
+  }
+]
+
 export default function Question(props: QuestionProps) {
   const question = props.value
   const Answers = () =>
     question.answers.map((answer, i) => (
-      <Answer key={i} value={answer} index={i} letter="A" color="#f2c866" />
+      <Answer key={i} value={answer} index={i} letter={letters[i].value} color={letters[i].color} />
     ))
 
   return (
