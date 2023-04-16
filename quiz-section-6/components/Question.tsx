@@ -11,7 +11,7 @@ export default function Question(props: QuestionProps) {
   const question = props.value
   const Answers = () =>
     question.answers.map((answer, i) => (
-      <Answer key={i} value={answer} index={i} letter="A" color="#f2c8" />
+      <Answer key={i} value={answer} index={i} letter="A" color="#f2c866" />
     ))
 
   return (

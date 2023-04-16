@@ -15,7 +15,9 @@ export default function Answer(props: AnswerProps) {
     <div className={styles.container}>
       <div className={styles.content}>
         <div className={styles.front}>
-          <div className={styles.letter}>{props.letter}</div>
+          <div className={styles.letter} style={{ backgroundColor: props.color }}>
+            {props.letter}
+          </div>
           <div className={styles.value}>{answer.value}</div>
         </div>
 
