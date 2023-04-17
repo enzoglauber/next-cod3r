@@ -5,6 +5,7 @@ interface AnswerProps {
   value: AnswerModel
   index: number
   letter: string
+  onAnswer: (index: number) => void
   color: string
 }
 
@@ -12,7 +13,7 @@ export default function Answer(props: AnswerProps) {
   const answer = props.value
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={() => props.onAnswer(props.index)}>
       <div className={styles.content}>
         <div className={styles.front}>
           <div className={styles.letter} style={{ backgroundColor: props.color }}>

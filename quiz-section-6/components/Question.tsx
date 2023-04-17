@@ -5,6 +5,7 @@ import Statement from './Statement'
 
 interface QuestionProps {
   value: QuestionModel
+  onAnswer: (index: number) => void
 }
 
 const letters = [
@@ -30,7 +31,14 @@ export default function Question(props: QuestionProps) {
   const question = props.value
   const Answers = () =>
     question.answers.map((answer, i) => (
-      <Answer key={i} value={answer} index={i} letter={letters[i].value} color={letters[i].color} />
+      <Answer
+        key={i}
+        value={answer}
+        index={i}
+        letter={letters[i].value}
+        color={letters[i].color}
+        onAnswer={(index) => console.log(index)}
+      />
     ))
 
   return (
