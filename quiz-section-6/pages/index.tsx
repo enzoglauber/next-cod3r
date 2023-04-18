@@ -13,6 +13,7 @@ export default function Home() {
   const [question, setQuestion] = useState(mock)
 
   const handleAnswer = (index: number) => {
+    console.log(index, 'index', question)
     setQuestion(question.answerWith(index))
   }
 

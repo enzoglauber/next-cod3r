@@ -37,7 +37,7 @@ export default function Question(props: QuestionProps) {
         index={i}
         letter={letters[i].value}
         color={letters[i].color}
-        onAnswer={(index) => console.log(index)}
+        onAnswer={props.onAnswer}
       />
     ))
 
