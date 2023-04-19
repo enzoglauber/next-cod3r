@@ -31,7 +31,12 @@ export default function Home() {
         alignItems: 'center'
       }}
     >
-      <Question value={question} onAnswer={handleAnswer} onComplete={handleCountDownComplete} />
+      <Question
+        duration={5}
+        value={question}
+        onAnswer={handleAnswer}
+        onComplete={handleCountDownComplete}
+      />
     </div>
   )
 }

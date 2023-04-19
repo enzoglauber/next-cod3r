@@ -5,6 +5,7 @@ import CountDown from './CountDown'
 import Statement from './Statement'
 
 interface QuestionProps {
+  duration?: number
   value: QuestionModel
   onAnswer: (index: number) => void
   onComplete: () => void
@@ -46,7 +47,7 @@ export default function Question(props: QuestionProps) {
   return (
     <div className={styles.question}>
       <Statement text={question.statement} />
-      <CountDown duration={10} onComplete={props.onComplete} />
+      <CountDown duration={props.duration} onComplete={props.onComplete} />
       {Answers()}
     </div>
   )
