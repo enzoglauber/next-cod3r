@@ -13,8 +13,13 @@ export default function Home() {
   const [question, setQuestion] = useState(mock)
 
   const handleAnswer = (index: number) => {
-    console.log(index, 'index', question)
     setQuestion(question.answerWith(index))
+  }
+
+  const handleCountDownComplete = () => {
+    if (question.notAnswered) {
+      setQuestion(question.answerWith(-1))
+    }
   }
 
   return (
@@ -26,7 +31,7 @@ export default function Home() {
         alignItems: 'center'
       }}
     >
-      <Question value={question} onAnswer={handleAnswer} />
+      <Question value={question} onAnswer={handleAnswer} onComplete={handleCountDownComplete} />
     </div>
   )
 }
