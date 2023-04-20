@@ -7,6 +7,7 @@ run productionn with SSG
 npx create-next-app@11.0.0 doors-section-4
 npx create-next-app@11 doors-section-4
 npm install --save-dev @types/react
+npm i react-countdown-circle-timer
 
 next pre rendering
   SPA - Single Page Aplication - Render do lado do navegador
