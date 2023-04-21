@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import Button from '../components/Button'
-import Question from '../components/Question'
+import Quiz from '../components/Quiz'
 import AnswerModel from '../model/answer'
 import QuestionModel from '../model/question'
 const mock = new QuestionModel(306, 'Qual bicho transmite a Doença de Chagas?', [
@@ -13,14 +12,12 @@ const mock = new QuestionModel(306, 'Qual bicho transmite a Doença de Chagas?',
 export default function Home() {
   const [question, setQuestion] = useState(mock)
 
-  const handleAnswer = (index: number) => {
-    setQuestion(question.answerWith(index))
+  const handleAnswer = (question: QuestionModel) => {
+    // setQuestion(question.answerWith(index))
   }
 
-  const handleCountDownComplete = () => {
-    if (question.notAnswered) {
-      setQuestion(question.answerWith(-1))
-    }
+  const handleNextStep = () => {
+    // setQuestion(question.answerWith(index))
   }
 
   return (
@@ -32,14 +29,7 @@ export default function Home() {
         alignItems: 'center'
       }}
     >
-      <Question
-        duration={5}
-        value={question}
-        onAnswer={handleAnswer}
-        onComplete={handleCountDownComplete}
-      />
-
-      <Button text="Próxima" href="result" onClick={console.log}></Button>
+      <Quiz question={question} last={true} onAnswer={handleAnswer} onNextStep={handleNextStep} />
     </div>
   )
 }
