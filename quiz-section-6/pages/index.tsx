@@ -39,10 +39,8 @@ export default function Home() {
   }
 
   const nextQuestion = () => {
-    if (question) {
-      const next = questions.indexOf(question.id) + 1
-      return questions[next]
-    }
+    const next = questions.indexOf(question.id) + 1
+    return questions[next]
   }
 
   const goToNextQuestion = (id: number) => {
@@ -64,12 +62,14 @@ export default function Home() {
     next ? goToNextQuestion(next) : finish()
   }
 
-  return (
+  return question ? (
     <Quiz
       question={question}
       last={nextQuestion() === undefined}
       onAnswer={handleAnswer}
       onNextStep={handleNextStep}
     />
+  ) : (
+    false
   )
 }

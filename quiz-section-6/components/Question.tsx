@@ -35,7 +35,7 @@ export default function Question(props: QuestionProps) {
   const Answers = () =>
     question.answers.map((answer, i) => (
       <Answer
-        key={i}
+        key={`${question.id}-${i}`}
         value={answer}
         index={i}
         letter={letters[i].value}
@@ -47,7 +47,7 @@ export default function Question(props: QuestionProps) {
   return (
     <div className={styles.question}>
       <Statement text={question.statement} />
-      <CountDown duration={props.duration} onComplete={props.onComplete} />
+      <CountDown key={question.id} duration={props.duration ?? 10} onComplete={props.onComplete} />
       {Answers()}
     </div>
   )
