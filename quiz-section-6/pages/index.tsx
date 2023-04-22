@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import Quiz from '../components/Quiz'
 import QuestionModel from '../model/question'
@@ -8,6 +9,7 @@ export default function Home() {
   const [questions, setQuestions] = useState<number[]>([])
   const [question, setQuestion] = useState<QuestionModel>(null)
   const [rights, setRights] = useState<number>(0)
+  const router = useRouter()
 
   const fetchQuestions = async () => {
     const response = await fetch(`${BASE_URL}/quiz`)
@@ -21,6 +23,7 @@ export default function Home() {
     setQuestion(QuestionModel.fromObject(question))
   }
 
+  //
   useEffect(() => {
     fetchQuestions()
   }, [])
@@ -35,11 +38,38 @@ export default function Home() {
     setRights(add)
   }
 
+  const nextQuestion = () => {
+    if (question) {
+      const next = questions.indexOf(question.id) + 1
+      return questions[next]
+    }
+  }
+
+  const goToNextQuestion = (id: number) => {
+    fetchQuestion(id)
+  }
+
+  const finish = () => {
+    router.push({
+      pathname: '/result',
+      query: {
+        total: questions.length,
+        rights
+      }
+    })
+  }
+
   const handleNextStep = () => {
-    // setQuestion(question.answerWith(index))
+    const next = nextQuestion()
+    next ? goToNextQuestion(next) : finish()
   }
 
   return (
-    <Quiz question={question} last={true} onAnswer={handleAnswer} onNextStep={handleNextStep} />
+    <Quiz
+      question={question}
+      last={nextQuestion() === undefined}
+      onAnswer={handleAnswer}
+      onNextStep={handleNextStep}
+    />
   )
 }
