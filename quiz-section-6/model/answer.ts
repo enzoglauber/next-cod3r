@@ -29,8 +29,16 @@ export default class AnswerModel {
     return this.#showed
   }
 
+  get hidded() {
+    return !this.showed
+  }
+
   show() {
     return new AnswerModel(this.#value, this.#right, true)
+  }
+
+  static fromObject(answer: AnswerModel): AnswerModel {
+    return new AnswerModel(answer.value, answer.right, answer.showed)
   }
 
   toObject() {

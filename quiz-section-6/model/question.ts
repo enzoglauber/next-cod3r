@@ -57,6 +57,11 @@ export default class QuestionModel {
     return new QuestionModel(this.id, this.statement, answers, right)
   }
 
+  static fromObject(question: QuestionModel): QuestionModel {
+    const answers = question.answers.map((answer) => AnswerModel.fromObject(answer))
+    return new QuestionModel(question.id, question.statement, answers, question.right)
+  }
+
   toObject() {
     return {
       id: this.#id,
