@@ -11,9 +11,7 @@ interface QuizProps {
 }
 
 export default function Quiz({ question, onNextStep, last, ...props }: QuizProps) {
-  console.log(question, `question`)
   const onAnswer = (index: number) => {
-    console.log(question, `index`, index)
     if (question.notAnswered) {
       props.onAnswer(question.answerWith(index))
     }

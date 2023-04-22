@@ -7,6 +7,7 @@ const BASE_URL = 'http://localhost:3000/api'
 export default function Home() {
   const [questions, setQuestions] = useState<number[]>([])
   const [question, setQuestion] = useState<QuestionModel>(null)
+  const [rights, setRights] = useState<number>(0)
 
   const fetchQuestions = async () => {
     const response = await fetch(`${BASE_URL}/quiz`)
@@ -29,7 +30,9 @@ export default function Home() {
   }, [questions])
 
   const handleAnswer = (question: QuestionModel) => {
-    // setQuestion(question.answerWith(index))
+    const add = rights + (question.right ? 1 : 0)
+    setQuestion(question)
+    setRights(add)
   }
 
   const handleNextStep = () => {
