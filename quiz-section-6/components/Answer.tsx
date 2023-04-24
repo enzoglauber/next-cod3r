@@ -11,10 +11,11 @@ interface AnswerProps {
 
 export default function Answer(props: AnswerProps) {
   const answer = props.value
+  const showed = answer.showed ? styles.showed : ``
 
   return (
     <div className={styles.container} onClick={() => props.onAnswer(props.index)}>
-      <div className={styles.content}>
+      <div className={`${styles.content} ${showed}`}>
         {answer.hidded ? (
           <div className={styles.front}>
             <div className={styles.letter} style={{ backgroundColor: props.color }}>

@@ -37,6 +37,10 @@
   background-color: #fff;
 }
 
+.back {
+  transform: rotateY(180deg);
+}
+
 .back > div {
   display: flex;
   flex-direction: column;
