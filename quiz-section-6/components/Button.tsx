@@ -4,7 +4,7 @@ import styles from '../styles/Button.module.css'
 interface ButtonProps {
   text: string
   href?: string
-  onClick: () => void
+  onClick?: () => void
 }
 
 export default function Button({ text, href, onClick }: ButtonProps) {
