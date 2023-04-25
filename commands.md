@@ -6,6 +6,7 @@ run productionn with SSG
 
 npx create-next-app@11.0.0 doors-section-4
 npx create-next-app@11 doors-section-4
+npx create-next-app@latest admin-template-section-8 --typescript --eslint
 npm install --save-dev @types/react
 npm i react-countdown-circle-timer
 
