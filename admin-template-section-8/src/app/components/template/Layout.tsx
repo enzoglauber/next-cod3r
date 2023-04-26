@@ -12,7 +12,7 @@ export default function Layout({ title, subtitle, children }: LayoutProps) {
   return (
     <div
       className={`
-        flex h-screen w-screen dark
+        flex h-screen w-screen
       `}
     >
       <Menu />
