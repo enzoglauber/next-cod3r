@@ -7,7 +7,13 @@ interface MenuProps {}
 
 export default function Menu(props: MenuProps) {
   return (
-    <aside className={`flex flex-col`}>
+    <aside
+      className={`
+        flex flex-col
+        bg-gray-200 text-gray-700
+        dark:bg-gray-900 dark:text-gray-200
+      `}
+    >
       <div
         className={`
           flex flex-col items-center justify-center
@@ -27,7 +33,10 @@ export default function Menu(props: MenuProps) {
           text="Logout"
           icon={Logout}
           onClick={() => console.log('logout')}
-          className={`text-red-600 hover:bg-red-400 hover:text-white transition-all ease-in`}
+          className={`
+            text-red-600 hover:bg-red-400 hover:text-white transition-all ease-in
+            dark:text-red-400  dark:hover:text-white
+          `}
         />
       </ul>
     </aside>
