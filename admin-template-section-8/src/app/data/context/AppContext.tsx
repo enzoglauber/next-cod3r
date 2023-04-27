@@ -1,7 +1,7 @@
 'use client'
 import { createContext, useState } from 'react'
 
-type Theme = 'dark' | ''
+export type Theme = 'dark' | ''
 interface AppContextProps {
   theme?: Theme
   toggleTheme?: () => void
