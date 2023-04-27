@@ -1,13 +1,25 @@
 'use client'
-import { createContext } from 'react'
+import { createContext, useState } from 'react'
 
-const AppContext = createContext({ name: null })
+type Theme = 'dark' | ''
+interface AppContextProps {
+  theme?: Theme
+  toggleTheme?: () => void
+}
+
+const AppContext = createContext<AppContextProps>({})
 
 export function AppProvider(props) {
+  const [theme, setTheme] = useState<Theme>('dark')
+  const toggleTheme = () => {
+    setTheme(theme === '' ? 'dark' : '')
+  }
+
   return (
     <AppContext.Provider
       value={{
-        name: `name text`
+        theme,
+        toggleTheme
       }}
     >
       {props.children}

@@ -1,3 +1,5 @@
+'use client'
+import useApp from '@/app/data/hook/useApp'
 import Content from './Content'
 import Header from './Header'
 import Menu from './Menu'
@@ -9,12 +11,10 @@ interface LayoutProps {
 }
 
 export default function Layout({ title, subtitle, children }: LayoutProps) {
+  const { theme } = useApp()
+
   return (
-    <div
-      className={`
-        flex h-screen w-screen
-      `}
-    >
+    <div className={`${theme} flex h-screen w-screen`}>
       <Menu />
       <div
         className={`
