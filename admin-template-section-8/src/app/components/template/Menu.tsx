@@ -1,7 +1,7 @@
 'use client'
+import { AdjustmentsVertical, Bell, Home, Logout } from '../icons'
 import Logo from './Logo'
 import MenuItem from './MenuItem'
-import { AdjustmentsVertical, Bell, Home, Logout } from './icons'
 
 interface MenuProps {}
 

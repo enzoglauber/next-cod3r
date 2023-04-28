@@ -1,5 +1,5 @@
 import { Theme } from '@/app/data/context/AppContext'
-import { Moon, Sun } from './icons'
+import { Moon, Sun } from '../icons'
 
 interface ToggleThemeProps {
   theme?: Theme

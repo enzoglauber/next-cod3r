@@ -6,10 +6,13 @@ interface AppContextProps {
   theme?: Theme
   toggleTheme?: () => void
 }
+interface AppProviderProps {
+  children: React.ReactNode
+}
 
 const AppContext = createContext<AppContextProps>({})
 
-export function AppProvider(props) {
+export function AppProvider(props: AppProviderProps) {
   const [theme, setTheme] = useState<Theme>('dark')
   const toggleTheme = () => {
     setTheme(theme === '' ? 'dark' : '')
