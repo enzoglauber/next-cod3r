@@ -18,17 +18,16 @@ export default function Auth() {
   }
 
   return (
-    <div className="flex flex-col h-screen items-center justify-center">
-      <div
-        className={`
-        w-1/2
-      `}
-      >
-        <h1
-          className={`
-          text-xl font-bold mb-5 
-        `}
-        >
+    <div className="flex h-screen items-center justify-center">
+      <div className={`hidden w-1/2 md:block lg:w-2/3`}>
+        <img
+          src="https://picsum.photos/1200/"
+          alt="Auth Image"
+          className="h-screen w-full object-cover"
+        />
+      </div>
+      <div className={`w-full md:w-1/2 m-10 lg:w-1/3`}>
+        <h1 className={`text-3xl font-bold mb-5`}>
           {mode === 'login' ? 'Login with your account' : 'Register on the Platform'}
         </h1>
         <AuthInput
@@ -69,6 +68,33 @@ export default function Auth() {
         >
           Login with Google
         </button>
+        {mode === 'login' ? (
+          <p className="mt-8">
+            New around here
+            <a
+              className={`
+                text-blue-500 hover:text-blue-700 font-semibold cursor-pointer
+              `}
+              onClick={() => setMode(`register`)}
+            >
+              {' '}
+              Create an account
+            </a>
+          </p>
+        ) : (
+          <p className="mt-8">
+            Already part of our community?
+            <a
+              className={`
+                text-blue-500 hover:text-blue-700 font-semibold cursor-pointer
+              `}
+              onClick={() => setMode(`login`)}
+            >
+              {' '}
+              Login with your credentials
+            </a>
+          </p>
+        )}
       </div>
     </div>
   )
