@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import AuthInput from '../components/auth/AuthInput'
+import { Warning } from '../components/icons'
 
 type Mode = 'login' | 'register'
 
@@ -8,13 +9,21 @@ export default function Auth() {
   const [mode, setMode] = useState<Mode>('login')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState<string | null>(null)
 
   const submit = () => {
     if (mode === 'login') {
       console.log('login')
+      showError('Login error!')
     } else {
+      showError('Login register!')
       console.log('register')
     }
+  }
+
+  const showError = (message: string, duration: number = 5) => {
+    setError(message)
+    setTimeout(() => setError(null), duration * 1000)
   }
 
   return (
@@ -30,6 +39,18 @@ export default function Auth() {
         <h1 className={`text-3xl font-bold mb-5`}>
           {mode === 'login' ? 'Login with your account' : 'Register on the Platform'}
         </h1>
+
+        {error ? (
+          <div
+            className={`flex items-center gap-3 bg-red-400 text-white py-3 px-5 my-2 border border-red-700 rounded-lg`}
+          >
+            {Warning()}
+            <span>{error}</span>
+          </div>
+        ) : (
+          false
+        )}
+
         <AuthInput
           type="email"
           label="Email"
@@ -62,9 +83,9 @@ export default function Auth() {
         <button
           onClick={submit}
           className={`
-          w-full bg-red-500 hover:bg-red-400
-          text-white rounded-lg px-4 py-3
-        `}
+            w-full bg-red-500 hover:bg-red-400
+            text-white rounded-lg px-4 py-3
+          `}
         >
           Login with Google
         </button>
