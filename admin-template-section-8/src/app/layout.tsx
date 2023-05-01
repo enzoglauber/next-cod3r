@@ -1,6 +1,9 @@
 import { Poppins } from 'next/font/google'
 import { AppProvider } from './data/context/AppContext'
+import { AuthProvider } from './data/context/AuthContext'
+
 import './globals.css'
+
 const poppins = Poppins({
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
   subsets: ['latin-ext']
@@ -13,10 +16,12 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <AppProvider>
-      <html lang="en">
-        <body className={`${poppins.className}`}>{children}</body>
-      </html>
-    </AppProvider>
+    <AuthProvider>
+      <AppProvider>
+        <html lang="en">
+          <body className={`${poppins.className}`}>{children}</body>
+        </html>
+      </AppProvider>
+    </AuthProvider>
   )
 }
