@@ -17,3 +17,7 @@ next pre rendering
   SSG - Static Site Generate - (Server)
   SEO - Search Engine Optimization
   DOM - Document Object Model
+
+
+to config version domain:
+https://console.firebase.google.com/project/cod3r-admin/authentication/settings?hl=pt
