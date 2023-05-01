@@ -7,17 +7,17 @@ import React, { createContext, useState } from 'react'
 
 firebase.SDK_VERSION
 
-// async function parseUser(firebaseUser: firebase.User): Promise<User> {
-//   const token = await firebaseUser.getIdToken()
-//   return {
-//     uid: firebaseUser.uid,
-//     name: firebaseUser.displayName,
-//     email: firebaseUser.email,
-//     token,
-//     provider: firebaseUser.providerData[0]?.providerId,
-//     image: firebaseUser.photoURL
-//   }
-// }
+async function parseUser(firebaseUser: firebase.User): Promise<User> {
+  const token = await firebaseUser.getIdToken()
+  return {
+    uid: firebaseUser.uid,
+    name: firebaseUser.displayName,
+    email: firebaseUser.email,
+    token,
+    provider: firebaseUser.providerData[0]?.providerId,
+    image: firebaseUser.photoURL
+  }
+}
 
 interface AuthContextProps {
   user?: User
@@ -34,8 +34,15 @@ export function AuthProvider(props: AuthProviderProps) {
   const [user, setUser] = useState<User | undefined>(undefined)
 
   async function loginGoogle() {
-    console.log(`Login google`)
-    router.push('/')
+    const provider = new firebase.auth.GoogleAuthProvider()
+    const response = await firebase.auth().signInWithPopup(provider)
+
+    console.log(response, `response`)
+    if (response.user?.email) {
+      const user = await parseUser(response.user)
+      setUser(user)
+      router.push('/')
+    }
   }
 
   return <AuthContext.Provider value={{ user, loginGoogle }}>{props.children}</AuthContext.Provider>
