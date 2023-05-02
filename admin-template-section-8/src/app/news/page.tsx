@@ -1,4 +1,3 @@
-'use client'
 import Layout from '../components/template/Layout'
 
 export default function News() {
