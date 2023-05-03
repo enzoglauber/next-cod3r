@@ -2,13 +2,13 @@
 
 import firebase from '@/firebase/config'
 import User from '@/model/User'
+import Cookies from 'js-cookie'
 import { useRouter } from 'next/navigation'
-import React, { createContext, useState } from 'react'
-
-firebase.SDK_VERSION
+import React, { createContext, useEffect, useState } from 'react'
 
 async function parseUser(firebaseUser: firebase.User): Promise<User> {
   const token = await firebaseUser.getIdToken()
+  console.log(firebaseUser)
   return {
     uid: firebaseUser.uid,
     name: firebaseUser.displayName ?? '',
@@ -17,12 +17,19 @@ async function parseUser(firebaseUser: firebase.User): Promise<User> {
     provider: firebaseUser.providerData[0]?.providerId ?? '',
     photoURL: firebaseUser.photoURL ?? ''
   }
+}
 
-  console.log(firebaseUser)
+function managerCookie(loggeed: boolean) {
+  const cookie = 'token'
+  if (loggeed) {
+    Cookies.set(cookie, `${loggeed}`, { expires: 7 })
+  } else {
+    Cookies.remove(cookie)
+  }
 }
 
 interface AuthContextProps {
-  user?: User
+  user?: User | null
   loginGoogle?: () => Promise<void>
 }
 interface AuthProviderProps {
@@ -33,18 +40,37 @@ const AuthContext = createContext<AuthContextProps>({})
 
 export function AuthProvider(props: AuthProviderProps) {
   const router = useRouter()
-  const [user, setUser] = useState<User | undefined>(undefined)
+  const [user, setUser] = useState<User | null | undefined>(null)
+  const [loading, setLoading] = useState<boolean>(true)
 
-  async function loginGoogle() {
+  const sessionConfig = async (firebaseUser: firebase.User | null) => {
+    const logged = !!firebaseUser?.email
+
+    setLoading(false)
+    managerCookie(logged)
+
+    if (logged) {
+      const user = await parseUser(firebaseUser)
+      setUser(user)
+      return user.email
+    } else {
+      setUser(null)
+      return false
+    }
+  }
+
+  const loginGoogle = async () => {
     const provider = new firebase.auth.GoogleAuthProvider()
     const response = await firebase.auth().signInWithPopup(provider)
 
-    if (response.user?.email) {
-      const user = await parseUser(response.user)
-      setUser(user)
-      router.push('/')
-    }
+    sessionConfig(response.user)
+    router.push('/')
   }
+
+  useEffect(() => {
+    const cancel = firebase.auth().onIdTokenChanged(sessionConfig)
+    return () => cancel()
+  }, [])
 
   return <AuthContext.Provider value={{ user, loginGoogle }}>{props.children}</AuthContext.Provider>
 }
