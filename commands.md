@@ -9,6 +9,7 @@ npx create-next-app@11 doors-section-4
 npx create-next-app@latest admin-template-section-8 --typescript --eslint
 npm install --save-dev @types/react
 npm i react-countdown-circle-timer
+npm i js-cookie
 
 next pre rendering
   SPA - Single Page Aplication - Render do lado do navegador
