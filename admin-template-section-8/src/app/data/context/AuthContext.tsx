@@ -8,7 +8,6 @@ import React, { createContext, useEffect, useState } from 'react'
 
 async function parseUser(firebaseUser: firebase.User): Promise<User> {
   const token = await firebaseUser.getIdToken()
-  console.log(firebaseUser)
   return {
     uid: firebaseUser.uid,
     name: firebaseUser.displayName ?? '',
@@ -19,8 +18,8 @@ async function parseUser(firebaseUser: firebase.User): Promise<User> {
   }
 }
 
+const cookie = 'token'
 function managerCookie(loggeed: boolean) {
-  const cookie = 'token'
   if (loggeed) {
     Cookies.set(cookie, `${loggeed}`, { expires: 7 })
   } else {
@@ -31,6 +30,7 @@ function managerCookie(loggeed: boolean) {
 interface AuthContextProps {
   user?: User | null
   loginGoogle?: () => Promise<void>
+  signOut?: () => Promise<void>
 }
 interface AuthProviderProps {
   children: React.ReactNode
@@ -67,12 +67,32 @@ export function AuthProvider(props: AuthProviderProps) {
     router.push('/')
   }
 
+  const signOut = async () => {
+    try {
+      setLoading(true)
+      await firebase.auth().signOut()
+      await sessionConfig(null)
+      managerCookie(false)
+      router.push('/auth')
+    } catch (error) {
+      setLoading(false)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   useEffect(() => {
-    const cancel = firebase.auth().onIdTokenChanged(sessionConfig)
-    return () => cancel()
+    if (Cookies.get(cookie)) {
+      const cancel = firebase.auth().onIdTokenChanged(sessionConfig)
+      return () => cancel()
+    }
   }, [])
 
-  return <AuthContext.Provider value={{ user, loginGoogle }}>{props.children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={{ user, loginGoogle, signOut }}>
+      {props.children}
+    </AuthContext.Provider>
+  )
 }
 
 export default AuthContext

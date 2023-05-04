@@ -1,4 +1,5 @@
 'use client'
+import useAuth from '@/app/data/hook/useAuth'
 import { AdjustmentsVertical, Bell, Home, Logout } from '../icons'
 import Logo from './Logo'
 import MenuItem from './MenuItem'
@@ -6,6 +7,7 @@ import MenuItem from './MenuItem'
 interface MenuProps {}
 
 export default function Menu(props: MenuProps) {
+  const { signOut } = useAuth()
   return (
     <aside
       className={`
@@ -32,7 +34,7 @@ export default function Menu(props: MenuProps) {
         <MenuItem
           text="Logout"
           icon={Logout}
-          onClick={() => console.log('logout')}
+          onClick={signOut}
           className={`
             text-red-600 hover:bg-red-400 hover:text-white transition-all ease-in
             dark:text-red-400  dark:hover:text-white
