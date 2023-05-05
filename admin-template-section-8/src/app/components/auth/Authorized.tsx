@@ -1,0 +1,33 @@
+import useAuth from '@/app/data/hook/useAuth'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import spinner from '../../../../public/images/spinner.gif'
+
+interface AuthorizedProps {
+  children?: React.ReactNode
+}
+
+export default function Authorized(props: AuthorizedProps) {
+  const router = useRouter()
+  const { user, loading } = useAuth()
+
+  const render = () => <>{props.children}</>
+  const loader = () => (
+    <div
+      className={`
+        flex justify-center items-center h-screen
+      `}
+    >
+      <Image src={spinner} height={400} width={400} alt="" />
+    </div>
+  )
+
+  if (!loading && user?.email) {
+    return render()
+  } else if (loading) {
+    return loader()
+  } else {
+    router.push('/auth')
+    return null
+  }
+}

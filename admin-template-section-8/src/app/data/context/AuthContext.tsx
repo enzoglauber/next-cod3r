@@ -31,6 +31,7 @@ interface AuthContextProps {
   user?: User | null
   loginGoogle?: () => Promise<void>
   signOut?: () => Promise<void>
+  loading?: boolean
 }
 interface AuthProviderProps {
   children: React.ReactNode
@@ -60,6 +61,7 @@ export function AuthProvider(props: AuthProviderProps) {
   }
 
   const loginGoogle = async () => {
+    setLoading(true)
     const provider = new firebase.auth.GoogleAuthProvider()
     const response = await firebase.auth().signInWithPopup(provider)
 
@@ -85,11 +87,13 @@ export function AuthProvider(props: AuthProviderProps) {
     if (Cookies.get(cookie)) {
       const cancel = firebase.auth().onIdTokenChanged(sessionConfig)
       return () => cancel()
+    } else {
+      setLoading(false)
     }
   }, [])
 
   return (
-    <AuthContext.Provider value={{ user, loginGoogle, signOut }}>
+    <AuthContext.Provider value={{ user, loginGoogle, signOut, loading }}>
       {props.children}
     </AuthContext.Provider>
   )
