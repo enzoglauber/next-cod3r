@@ -1,4 +1,5 @@
 import useAuth from '@/app/data/hook/useAuth'
+import Head from 'next/head'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import spinner from '../../../../public/images/spinner.gif'
@@ -11,7 +12,22 @@ export default function Authorized(props: AuthorizedProps) {
   const router = useRouter()
   const { user, loading } = useAuth()
 
-  const render = () => <>{props.children}</>
+  const render = () => (
+    <>
+      <Head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if(!document.cookie?.includes("auth")) {
+                window.location.href="/auth"
+              }
+            `
+          }}
+        />
+      </Head>
+      {props.children}
+    </>
+  )
   const loader = () => (
     <div
       className={`
