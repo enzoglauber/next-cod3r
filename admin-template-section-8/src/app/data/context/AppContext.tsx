@@ -1,5 +1,5 @@
 'use client'
-import { createContext, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 
 export type Theme = 'dark' | ''
 interface AppContextProps {
@@ -15,8 +15,15 @@ const AppContext = createContext<AppContextProps>({})
 export function AppProvider(props: AppProviderProps) {
   const [theme, setTheme] = useState<Theme>('dark')
   const toggleTheme = () => {
-    setTheme(theme === '' ? 'dark' : '')
+    const value = theme === '' ? 'dark' : ''
+    localStorage.setItem('theme', value)
+    setTheme(value)
   }
+
+  useEffect(() => {
+    const value = localStorage.getItem('theme') as Theme
+    setTheme(value)
+  }, [])
 
   return (
     <AppContext.Provider

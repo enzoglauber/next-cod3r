@@ -12,7 +12,7 @@ export default function Avatar({ className = '' }: AvatarProps) {
     <Link href="/profile">
       <img
         src={user?.photoURL ?? '/images/avatar.svg'}
-        referrerpolicy="no-referrer"
+        referrerPolicy="no-referrer"
         alt="User avatar"
         className={`
           h-10 w-10 rounded-full cursor-pointer ${className}

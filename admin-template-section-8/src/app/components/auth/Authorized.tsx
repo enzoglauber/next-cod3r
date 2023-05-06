@@ -34,7 +34,7 @@ export default function Authorized(props: AuthorizedProps) {
         flex justify-center items-center h-screen
       `}
     >
-      <Image src={spinner} height={400} width={400} alt="" />
+      <Image src={spinner} height={100} width={100} alt="" />
     </div>
   )
 
