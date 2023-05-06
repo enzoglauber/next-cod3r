@@ -30,6 +30,8 @@ function managerCookie(loggeed: boolean) {
 interface AuthContextProps {
   user?: User | null
   loginGoogle?: () => Promise<void>
+  login: (email: string, password: string) => Promise<void>
+  register: (email: string, password: string) => Promise<void>
   signOut?: () => Promise<void>
   loading?: boolean
 }
@@ -65,7 +67,21 @@ export function AuthProvider(props: AuthProviderProps) {
     const provider = new firebase.auth.GoogleAuthProvider()
     const response = await firebase.auth().signInWithPopup(provider)
 
-    sessionConfig(response.user)
+    await sessionConfig(response.user)
+    router.push('/')
+  }
+
+  const login = async (email: string, password: string) => {
+    setLoading(true)
+    const response = await firebase.auth().signInWithEmailAndPassword(email, password)
+    await sessionConfig(response.user)
+    router.push('/')
+  }
+
+  const register = async (email: string, password: string) => {
+    setLoading(true)
+    const response = await firebase.auth().createUserWithEmailAndPassword(email, password)
+    await sessionConfig(response.user)
     router.push('/')
   }
 
@@ -93,7 +109,7 @@ export function AuthProvider(props: AuthProviderProps) {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ user, loginGoogle, signOut, loading }}>
+    <AuthContext.Provider value={{ user, register, login, loginGoogle, signOut, loading }}>
       {props.children}
     </AuthContext.Provider>
   )

@@ -7,19 +7,21 @@ import useAuth from '../data/hook/useAuth'
 type Mode = 'login' | 'register'
 
 export default function Auth() {
-  const { user, loginGoogle } = useAuth()
+  const { user, register, login, loginGoogle } = useAuth()
   const [mode, setMode] = useState<Mode>('login')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
 
-  const submit = () => {
-    if (mode === 'login') {
-      console.log('login')
-      showError('Login error!')
-    } else {
-      showError('Login register!')
-      console.log('register')
+  const submit = async () => {
+    try {
+      if (mode === 'login') {
+        await login(email, password)
+      } else {
+        await register(email, password)
+      }
+    } catch (e: any) {
+      showError(e?.message ?? 'Unknown error')
     }
   }
 
