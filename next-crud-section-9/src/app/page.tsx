@@ -1,4 +1,5 @@
 'use client'
+import Button from '@/components/Button'
 import Layout from '@/components/Layout'
 import Table from '@/components/Table'
 import Customer from '@/core/customer'
@@ -28,6 +29,14 @@ export default function Home() {
       `}
     >
       <Layout title="Simple Register">
+        <div className="flex justify-end">
+          <Button className="mb-4" color="green">
+            New Customer
+          </Button>
+          <Button className="mb-4" color="gray">
+            New Customer
+          </Button>
+        </div>
         <Table customers={customers} onSelected={onSelected} onRemoved={onRemoved} />
       </Layout>
     </div>
