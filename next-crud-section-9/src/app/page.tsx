@@ -1,3 +1,4 @@
+'use client'
 import Layout from '@/components/Layout'
 import Table from '@/components/Table'
 import Customer from '@/core/customer'
@@ -9,6 +10,15 @@ export default function Home() {
     new Customer(`Bia`, 45, '2'),
     new Customer(`Carlos`, 33, '3')
   ]
+
+  const onSelected = (customer: Customer) => {
+    console.log(`selected`, customer)
+  }
+
+  const onRemoved = (customer: Customer) => {
+    console.log(`remove`, customer)
+  }
+
   return (
     <div
       className={`
@@ -18,7 +28,7 @@ export default function Home() {
       `}
     >
       <Layout title="Simple Register">
-        <Table customers={customers} />
+        <Table customers={customers} onSelected={onSelected} onRemoved={onRemoved} />
       </Layout>
     </div>
   )
