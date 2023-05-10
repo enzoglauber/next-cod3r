@@ -4,7 +4,7 @@ interface ButtonProps {
   children?: React.ReactNode
 }
 
-export default function Button({ children, className, color = 'green' }: ButtonProps) {
+export default function Button({ children, className, color = 'gray' }: ButtonProps) {
   return (
     <button
       className={`

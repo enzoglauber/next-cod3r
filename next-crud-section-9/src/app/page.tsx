@@ -1,5 +1,6 @@
 'use client'
 import Button from '@/components/Button'
+import Form from '@/components/Form'
 import Layout from '@/components/Layout'
 import Table from '@/components/Table'
 import Customer from '@/core/customer'
@@ -34,6 +35,7 @@ export default function Home() {
             New Customer
           </Button>
         </div>
+        <Form customer={customers[0]} />
         <Table customers={customers} onSelected={onSelected} onRemoved={onRemoved} />
       </Layout>
     </div>
