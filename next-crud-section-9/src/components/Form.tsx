@@ -5,9 +5,11 @@ import Input from './Input'
 
 interface FormProps {
   customer?: Customer
+  onCancel?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  onChange?: (customer: Customer) => void
 }
 
-export default function Form({ customer }: FormProps) {
+export default function Form({ customer, onChange, onCancel }: FormProps) {
   const id = customer?.id
   const [name, setName] = useState(customer?.name ?? '')
   const [age, setAge] = useState(customer?.age ?? 0)
@@ -22,8 +24,12 @@ export default function Form({ customer }: FormProps) {
       <Input label="Name" value={name} onChange={setName} />
       <Input label="Age" value={age} type="number" onChange={setAge} />
       <div className="flex justify-end">
-        <Button className="mr-2">Cancelar</Button>
-        <Button color="blue">{id ? 'Update' : 'Register'}</Button>
+        <Button className="mr-2" onClick={onCancel}>
+          Cancelar
+        </Button>
+        <Button color="blue" onClick={() => onChange?.(new Customer(name, age, id))}>
+          {id ? 'Update' : 'Register'}
+        </Button>
       </div>
     </form>
   )

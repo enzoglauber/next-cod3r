@@ -4,8 +4,16 @@ import Form from '@/components/Form'
 import Layout from '@/components/Layout'
 import Table from '@/components/Table'
 import Customer from '@/core/customer'
+import { useState } from 'react'
+
+enum Kind {
+  table,
+  form
+}
 
 export default function Home() {
+  const [kind, setKind] = useState<Kind>(Kind.table)
+
   const customers = [
     new Customer(`Jair`, 22, '2x'),
     new Customer(`Ana`, 34, '1'),
@@ -21,6 +29,19 @@ export default function Home() {
     console.log(`remove`, customer)
   }
 
+  const handleNewCustomer = () => {
+    setKind(Kind.form)
+  }
+
+  const handleCancel = () => {
+    setKind(Kind.table)
+  }
+
+  const handleSaveCustomer = (customer: Customer) => {
+    setKind(Kind.table)
+    console.log(customer, Kind.table)
+  }
+
   return (
     <div
       className={`
@@ -30,13 +51,18 @@ export default function Home() {
       `}
     >
       <Layout title="Simple Register">
-        <div className="flex justify-end">
-          <Button className="mb-4" color="green">
-            New Customer
-          </Button>
-        </div>
-        <Form customer={customers[0]} />
-        <Table customers={customers} onSelected={onSelected} onRemoved={onRemoved} />
+        {kind === Kind.table ? (
+          <>
+            <div className="flex justify-end">
+              <Button className="mb-4" color="green" onClick={handleNewCustomer}>
+                New Customer
+              </Button>
+            </div>
+            <Table customers={customers} onSelected={onSelected} onRemoved={onRemoved} />
+          </>
+        ) : (
+          <Form customer={customers[0]} onCancel={handleCancel} onChange={handleSaveCustomer} />
+        )}
       </Layout>
     </div>
   )
