@@ -33,9 +33,6 @@ export default function Home() {
           <Button className="mb-4" color="green">
             New Customer
           </Button>
-          <Button className="mb-4" color="gray">
-            New Customer
-          </Button>
         </div>
         <Table customers={customers} onSelected={onSelected} onRemoved={onRemoved} />
       </Layout>

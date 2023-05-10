@@ -5,7 +5,15 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}'
   ],
-  safelist: [/^bg-/, /^to-/, /^from-/],
+  safelist: [
+    'bg-red-500',
+    'text-3xl',
+    'lg:text-4xl',
+    {
+      pattern:
+        /bg-(gray|green|blue)-(400|700)|to-(gray|green|blue)-(400|700)|from-(gray|green|blue)-(400|700)/
+    }
+  ],
   theme: {
     extend: {
       backgroundImage: {

@@ -13,7 +13,7 @@ export default function Button({ children, className, color = 'green' }: ButtonP
         ${className ?? ``}
       `}
     >
-      {children} 122
+      {children}
     </button>
   )
 }
