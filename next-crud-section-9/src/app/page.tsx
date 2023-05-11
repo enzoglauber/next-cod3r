@@ -13,6 +13,7 @@ enum Kind {
 
 export default function Home() {
   const [kind, setKind] = useState<Kind>(Kind.table)
+  const [customer, setCustomer] = useState<Customer>(Customer.empty())
 
   const customers = [
     new Customer(`Jair`, 22, '2x'),
@@ -23,6 +24,8 @@ export default function Home() {
 
   const onSelected = (customer: Customer) => {
     console.log(`selected`, customer)
+    setKind(Kind.form)
+    setCustomer(customer)
   }
 
   const onRemoved = (customer: Customer) => {
@@ -30,6 +33,7 @@ export default function Home() {
   }
 
   const handleNewCustomer = () => {
+    setCustomer(Customer.empty())
     setKind(Kind.form)
   }
 
@@ -61,7 +65,7 @@ export default function Home() {
             <Table customers={customers} onSelected={onSelected} onRemoved={onRemoved} />
           </>
         ) : (
-          <Form customer={customers[0]} onCancel={handleCancel} onChange={handleSaveCustomer} />
+          <Form customer={customer} onCancel={handleCancel} onChange={handleSaveCustomer} />
         )}
       </Layout>
     </div>
