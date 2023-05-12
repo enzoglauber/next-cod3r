@@ -9,4 +9,4 @@ const config = {
 
 const app = initializeApp(config)
 
-export const database = getFirestore(app)
+export const db = getFirestore(app)
