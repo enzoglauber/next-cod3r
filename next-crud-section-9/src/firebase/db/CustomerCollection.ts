@@ -35,6 +35,7 @@ export default class CustomerCollection implements CustomerRepository {
     const id = customer.id
     if (id) {
       const doc = this.#doc(`${id}`)
+      console.log(doc, customer)
       await updateDoc(doc, customer)
       return customer
     } else {

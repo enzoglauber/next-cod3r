@@ -3,8 +3,10 @@ import Button from '@/components/Button'
 import Form from '@/components/Form'
 import Layout from '@/components/Layout'
 import Table from '@/components/Table'
+import CustomerRepository from '@/core/CustomerRepository'
 import Customer from '@/core/customer'
-import { useState } from 'react'
+import CustomerCollection from '@/firebase/db/CustomerCollection'
+import { useEffect, useState } from 'react'
 
 enum Kind {
   table,
@@ -12,24 +14,26 @@ enum Kind {
 }
 
 export default function Home() {
+  const customerRepository: CustomerRepository = new CustomerCollection()
   const [kind, setKind] = useState<Kind>(Kind.table)
   const [customer, setCustomer] = useState<Customer>(Customer.empty())
+  const [customers, setCustomers] = useState<Customer[]>([])
 
-  const customers = [
-    new Customer(`Jair`, 22, '2x'),
-    new Customer(`Ana`, 34, '1'),
-    new Customer(`Bia`, 45, '2'),
-    new Customer(`Carlos`, 33, '3')
-  ]
+  const getAll = () => {
+    customerRepository.getAll().then((data) => {
+      setKind(Kind.table)
+      setCustomers(data)
+    })
+  }
 
   const onSelected = (customer: Customer) => {
-    console.log(`selected`, customer)
     setKind(Kind.form)
     setCustomer(customer)
   }
 
-  const onRemoved = (customer: Customer) => {
-    console.log(`remove`, customer)
+  const onRemoved = async (customer: Customer) => {
+    await customerRepository.remove(customer)
+    getAll()
   }
 
   const handleNewCustomer = () => {
@@ -41,10 +45,16 @@ export default function Home() {
     setKind(Kind.table)
   }
 
-  const handleSaveCustomer = (customer: Customer) => {
-    setKind(Kind.table)
-    console.log(customer, Kind.table)
+  const handleSaveCustomer = async (customer: Customer) => {
+    console.log(customer)
+    await customerRepository.save(customer)
+
+    // .then(getAll)
+
+    // setKind(2Kind.table)
   }
+
+  useEffect(getAll, [])
 
   return (
     <div
