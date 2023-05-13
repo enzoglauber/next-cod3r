@@ -8,6 +8,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDocs,
   updateDoc
 } from 'firebase/firestore'
 import { db } from '..'
@@ -37,8 +38,8 @@ export default class CustomerCollection implements CustomerRepository {
       await updateDoc(doc, customer)
       return customer
     } else {
-      await addDoc(this.#collection(), customer)
-      return customer
+      const ref = await addDoc(this.#collection(), customer)
+      return new Customer(customer.name, customer.age, ref.id)
     }
   }
 
@@ -46,7 +47,8 @@ export default class CustomerCollection implements CustomerRepository {
     return await deleteDoc(this.#doc(`${customer.id}`))
   }
 
-  async getAll(customer: Customer): Promise<Customer[]> {
-    return null
+  async getAll(): Promise<Customer[]> {
+    const query = await getDocs(this.#collection())
+    return query.docs.map((doc) => doc.data())
   }
 }
