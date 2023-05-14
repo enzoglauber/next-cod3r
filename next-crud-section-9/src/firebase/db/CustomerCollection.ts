@@ -4,7 +4,6 @@ import {
   DocumentReference,
   QueryDocumentSnapshot,
   SnapshotOptions,
-  addDoc,
   collection,
   deleteDoc,
   doc,
@@ -39,8 +38,8 @@ export default class CustomerCollection implements CustomerRepository {
       await updateDoc(doc, customer)
       return customer
     } else {
-      const ref = await addDoc(this.#collection(), customer)
-      return new Customer(customer.name, customer.age, ref.id)
+      // const ref = await addDoc(this.#collection(), customer)
+      // return new Customer(customer.name, customer.age, ref.id)
     }
   }
 
