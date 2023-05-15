@@ -27,7 +27,13 @@ export default function Form({ customer, onChange, onCancel }: FormProps) {
         <Button className="mr-2" onClick={onCancel}>
           Cancelar
         </Button>
-        <Button color="blue" onClick={() => onChange?.(new Customer(name, age, id))}>
+        <Button
+          color="blue"
+          onClick={() => {
+            console.log(name, age, id)
+            onChange?.(new Customer(name, age, id))
+          }}
+        >
           {id ? 'Update' : 'Register'}
         </Button>
       </div>

@@ -26,7 +26,7 @@ export default function Home() {
     })
   }
 
-  const onSelected = (customer: Customer) => {
+  const onSelected = async (customer: Customer) => {
     setKind(Kind.form)
     setCustomer(customer)
   }
@@ -46,12 +46,8 @@ export default function Home() {
   }
 
   const handleSaveCustomer = async (customer: Customer) => {
-    console.log(customer)
-    await customerRepository.save(customer)
-
-    // .then(getAll)
-
-    // setKind(2Kind.table)
+    await customerRepository.save(customer).then(getAll)
+    setKind(Kind.table)
   }
 
   useEffect(getAll, [])

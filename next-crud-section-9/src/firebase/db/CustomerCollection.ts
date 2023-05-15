@@ -4,6 +4,7 @@ import {
   DocumentReference,
   QueryDocumentSnapshot,
   SnapshotOptions,
+  addDoc,
   collection,
   deleteDoc,
   doc,
@@ -31,15 +32,16 @@ export default class CustomerCollection implements CustomerRepository {
   }
 
   async save(customer: Customer): Promise<Customer> {
-    const id = customer.id
+    const { id } = customer
     if (id) {
-      const doc = this.#doc(`${id}`)
-      console.log(doc, customer)
+      const doc = this.#doc(id)
+      console.log(`DC`, doc)
       await updateDoc(doc, customer)
-      return customer
+      return { ...customer, id } as Customer
     } else {
-      // const ref = await addDoc(this.#collection(), customer)
-      // return new Customer(customer.name, customer.age, ref.id)
+      console.log(`ADD`, doc, customer)
+      const ref = await addDoc(this.#collection(), customer)
+      return new Customer(customer.name, customer.age, ref.id)
     }
   }
 
