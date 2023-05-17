@@ -9,7 +9,7 @@ import {
   deleteDoc,
   doc,
   getDocs,
-  updateDoc
+  setDoc
 } from 'firebase/firestore'
 import { db } from '..'
 
@@ -21,6 +21,7 @@ export default class CustomerCollection implements CustomerRepository {
   #converter = {
     toFirestore(customer: Customer) {
       return {
+        // id: customer.id,
         name: customer.name,
         age: customer.age
       }
@@ -32,14 +33,12 @@ export default class CustomerCollection implements CustomerRepository {
   }
 
   async save(customer: Customer): Promise<Customer> {
-    const { id } = customer
+    const id = customer.id
     if (id) {
       const doc = this.#doc(id)
-      console.log(`DC`, doc)
-      await updateDoc(doc, customer)
-      return { ...customer, id } as Customer
+      await setDoc(doc, customer)
+      return customer
     } else {
-      console.log(`ADD`, doc, customer)
       const ref = await addDoc(this.#collection(), customer)
       return new Customer(customer.name, customer.age, ref.id)
     }
